@@ -90,8 +90,26 @@ app.use(userRouter)
 - 响应
 
 | 参数名称 |参数说明 | 是否必须 |数据类型 |
-| ---- | ---- | | |
+| ---- | ---- | ----|---- |
 | id | key | true | int |
 | user_img | 头像 | true | string |
 | user_name | 用户名 | true | string |
 | user_resume | 简介 | true | string |
+
+#### 随笔/学习记录列表 `note_list`
+
+> 获取列表接口
+> 接口地址：/note/list
+> 请求方式：get
+
+- 响应
+
+| 参数名称 |参数说明 | 是否必须 |数据类型 |
+| ---- | ---- | ----|---- |
+| id | key | true | int |
+| note_id | 随笔id | true | int |
+| note_title | 文章标题 | true | string |
+| note_desc | 文章简介 | true | string |
+| note_content | 文章内容 | true | string |
+| note_tags | 文章标签 | true | string |
+
