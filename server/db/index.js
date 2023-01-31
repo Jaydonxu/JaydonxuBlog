@@ -1,19 +1,20 @@
+// 引入模块
 const mysql = require('mysql')
-
-const db = mysql.createPool({
-  host: '127.0.0.1',
+// 建立连接对象
+const conn = mysql.createConnection({
+  host: 'localhost',
   user: 'jaydonxu',
   password: 'xhj623',
-  datebase: 'my_dv'
+  database: 'my_db'
 })
-// console.log(db)
-
-db.getConnection(function (error) {
-  if (error) {
-    console.log('连接失败！', error)
-  } else {
-    console.log('连接成功，当前连接线程ID：' + db.threadId)
+// 连接数据库
+conn.connect(function (err) {
+  if (err) {
+    console.log('连接失败！')
+    conn.connect()
   }
+  console.log('连接成功,当前连接线程ID：' + conn.threadId)
 })
 
-module.exports = db
+//导出
+module.exports = conn
