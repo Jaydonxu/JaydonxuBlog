@@ -79,6 +79,57 @@ app.use(userRouter)
 
 ```
 
+### `express` 热更新第三方插件 `nodemon`
+
+- 全局安装
+
+```js 
+npm i -g nodemon 
+```
+- 新增 nodemon.json 配置文件
+
+```js
+{
+    "restartable": "rs",  
+    "ignore": [
+        ".git",
+        ".svn",
+        "node_modules/**/node_modules"
+    ],
+    "verbose": true,
+    "execMap": {
+        "js": "node --harmony"
+    },
+    "watch": [],
+    "env": {
+        "NODE_ENV": "development"
+    },
+    "ext": "ejs js json"
+}
+
+
+/* restartable-设置重启模式
+ignore-设置忽略文件
+verbose-设置日志输出模式，true 详细模式
+execMap-设置运行服务的后缀名与对应的命令
+{
+“js”: “node –harmony”
+}
+表示使用 nodemon 代替 node
+watch-监听哪些文件的变化，当变化的时候自动重启
+ext-监控指定的后缀文件名 */
+```
+
+- app.js文件使用
+
+```js
+var debug = require('debug')('my-application'); // debug模块
+app.set('port', 3000); // 设定监听端口
+var server = app.listen(app.get('port'), function () {
+  debug('Express server listening on port ' + server.address().port);
+});//开启监听端口号
+```
+
 ## 接口设计文档
 
 #### 个人信息表 `user_info`
@@ -89,12 +140,12 @@ app.use(userRouter)
 
 - 响应
 
-| 参数名称 |参数说明 | 是否必须 |数据类型 |
-| ---- | ---- | ----|---- |
-| id | key | true | int |
-| user_img | 头像 | true | string |
-| user_name | 用户名 | true | string |
-| user_resume | 简介 | true | string |
+| 参数名称    | 参数说明 | 是否必须 | 数据类型 |
+| ----------- | -------- | -------- | -------- |
+| id          | key      | true     | int      |
+| user_img    | 头像     | true     | string   |
+| user_name   | 用户名   | true     | string   |
+| user_resume | 简介     | true     | string   |
 
 #### 随笔/学习记录列表 `note_list`
 
@@ -104,12 +155,12 @@ app.use(userRouter)
 
 - 响应
 
-| 参数名称 |参数说明 | 是否必须 |数据类型 |
-| ---- | ---- | ----|---- |
-| id | key | true | int |
-| note_id | 随笔id | true | int |
-| note_title | 文章标题 | true | string |
-| note_desc | 文章简介 | true | string |
-| note_content | 文章内容 | true | string |
-| note_tags | 文章标签 | true | string |
+| 参数名称     | 参数说明 | 是否必须 | 数据类型 |
+| ------------ | -------- | -------- | -------- |
+| id           | key      | true     | int      |
+| note_id      | 随笔id   | true     | int      |
+| note_title   | 文章标题 | true     | string   |
+| note_desc    | 文章简介 | true     | string   |
+| note_content | 文章内容 | true     | string   |
+| note_tags    | 文章标签 | true     | string   |
 

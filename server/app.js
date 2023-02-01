@@ -7,10 +7,13 @@ const cors = require('cors')
 // express——user路由
 const userRouter = require('./router/user')
 
+var debug = require('debug')('my-application'); // debug模块
+
 const resultHandle = require('./utils/result')
 
 // 创建express实例
 const app = express()
+app.set('port', 3000); // 设定监听端口
 app.use(express.static('dist'))
 app.use(cors())
 
@@ -34,6 +37,10 @@ app.use('/', (req, res, next) => {
 // app.use(resultHandle)
 
 // 开启监听端口号
-app.listen(3000, () => {
-  console.log('http://localhost:3000')
-})
+// app.listen(3000, () => {
+//   console.log('http://localhost:3000')
+// })
+
+var server = app.listen(app.get('port'), function () {
+  debug('Express server listening on port ' + server.address().port);
+});
