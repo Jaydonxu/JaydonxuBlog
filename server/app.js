@@ -14,7 +14,9 @@ const app = express()
 app.use(express.static('dist'))
 app.use(cors())
 
+// 配置解析post参数---不用在下载第三方，express内置
 app.use(express.urlencoded({ extended: false }))
+// 响应json对象
 app.use(express.json())
 
 app.use(userRouter)
