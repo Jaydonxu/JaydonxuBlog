@@ -1,9 +1,15 @@
+<script setup lang="ts">
+import Header from "../../components/layout/header.vue";
+</script>
+
 <template>
   <div class="common-layout">
-    <el-container>
-      <el-header>Header</el-header>
+    <el-container class="content">
+      <el-aside width="200px">Aside</el-aside>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
+        <el-header>
+          <Header></Header>
+        </el-header>
         <el-main>Main</el-main>
       </el-container>
     </el-container>
@@ -11,39 +17,22 @@
 </template>
 
 <style scoped>
-.logoBox {
-  position: absolute;
-  top: 18px;
-  left: 30px;
-  font-size: 24px;
-  color: #fff;
-}
-
-.box {
+.common-layout {
   width: 100vw;
   height: 100vh;
 }
-.header {
-  padding: 0;
-  height: 58px;
-  background-color: #545c64;
+.content {
+  width: 100%;
+  height: 100%;
 }
-
-/* 去除默认的边框样式 */
-.el-header .el-menu {
-  border-bottom: none;
+.el-header {
+  background-color: #eeeeee;
 }
-.el-aside .el-menu {
-  border-right: none;
-}
-
-.el-main {
-  background-color: #e9eef3;
-}
-
 .el-aside {
-  width: 240px;
-  background: #545c64;
-  padding-top: 58px;
+  background-color: #2f3e52;
+  color: #fff;
+}
+.el-main {
+  background-color: #f7f7f5;
 }
 </style>

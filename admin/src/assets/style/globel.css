@@ -1,0 +1,36 @@
+/* 自定义class flex属性 */
+
+.flex {
+    display: flex;
+}
+.flex-end {
+    justify-content: end;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.justify-around {
+    justify-content: space-around;
+}
+.justify-center {
+    justify-content: center;
+}
+.items-center {
+    align-items: center;
+}
+.direction-row {
+    direction: row;
+}
+.direction-row-reverse {
+    direction: row-reverse;
+}
+.direction-column {
+    direction: column;
+}
+.direction-column-reverse {
+    direction: column-reverse;
+}
+.flex-warp {
+    flex-wrap: wrap;
+}
+
