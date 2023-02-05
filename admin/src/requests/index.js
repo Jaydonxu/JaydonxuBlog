@@ -1,14 +1,13 @@
 import axios from 'axios'
 
-const instance = axios.create({
-    baseURL: '127.0.0.1:3000',
-    timeout: 10000,
-    headers: { 'X-Custom-Header': 'foobar' }
-})
+
+
+axios.defaults.timeout = 5 * 1000
+axios.defaults.baseURL = 'http://localhost:3001'
 
 // 请求拦截器
-instance.interceptors.request.use(config => {
-    
+axios.interceptors.request.use(config => {
+    console.log(config, 'confug');
 
     return config
 }, (err) => {
@@ -16,8 +15,10 @@ instance.interceptors.request.use(config => {
 })
 
 // 响应拦截器
-instance.interceptors.request.use(config => {
+axios.interceptors.request.use(config => {
     return config
 }, (err) => {
     return Promise.reject(err) 
 })
+
+export default axios

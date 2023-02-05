@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
+import { User, Lock } from "@element-plus/icons-vue";
+import { handleLogin } from "../../api";
+
 const form = ref<FormInstance>();
 const ruleForm = reactive<FormRules>({
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
@@ -22,7 +25,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log("submit!");
+      console.log("submit!", formData);
+      handleLogin(formData).then((res) => {
+        console.log(res, "res");
+      });
     } else {
       console.log("error submit!", fields);
     }
@@ -35,7 +41,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     <div class="login-content flex items-center justify-between">
       <img src="../../assets/imgs/login/login_img.png" alt="" />
       <div class="login-form">
-        <h3>博客后台管理系统</h3>
+        <h3 class="flex items-center justify-center">
+          <img src="../../assets/imgs/login/login_icon.png" />博客后台管理系统
+        </h3>
         <el-form
           ref="form"
           label-position="top"
@@ -45,13 +53,22 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           style="max-width: 460px"
         >
           <el-form-item label="账号" prop="username">
-            <el-input v-model="formData.username" />
+            <el-input
+              v-model="formData.username"
+              placeholder="请输入账号"
+              :prefix-icon="User"
+            />
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input v-model="formData.password" />
+            <el-input
+              v-model="formData.password"
+              type="password"
+              placeholder="请输入密码"
+              :prefix-icon="Lock"
+            />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm(form)"> </el-button>
+            <el-button type="primary" @click="submitForm(form)">登录</el-button>
           </el-form-item>
         </el-form>
         <!-- <el-button type="primary" @click="loginHandler(form)">登录</el-button> -->
@@ -77,18 +94,24 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       border-radius: 4px;
       h3 {
         font-weight: 400;
-        text-align: center;
-        margin: 0 auto;
+        img {
+          margin-right: 10px;
+        }
       }
       .el-form {
-        width: 300px;
-        margin: 40px auto;
+        width: 260px;
+        margin: 30px auto 0;
         ::v-deep .el-form-item {
           .el-input__wrapper {
             height: 40px;
           }
           .el-form-item__label::before {
             display: none !important;
+          }
+          .el-form-item__content {
+            .el-button {
+              margin-top: 25px !important;
+            }
           }
         }
       }
