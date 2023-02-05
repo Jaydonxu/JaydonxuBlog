@@ -1,11 +1,9 @@
 const express = require('express')
 const conn = require('../db/index')
+const {jwt,expressJwt, key} = require('./token')
+
 const Router = express.Router()
 
-// 导入处理函数
-const user_handler = require('../router_handler/user.js')
-
-Router.get('/user', user_handler.age)
 
 /* 查询数据库数据操作 */
 // Router.get('/check', function (req, res) {
@@ -31,26 +29,24 @@ Router.get('/user', user_handler.age)
 // })
 
 /* 获取个人信息 */
-Router.get('/user/info', function (req, res, next) {
-  const sql = 'SELECT * FROM user_info'
-  conn.query(sql, function (err, result) {
-    console.log('当前连接线程ID：' + conn.threadId)
-    if (err) {
-      console.log('插入语句执行一场')
-      req.err = err
-      next()
-    } else {
-      console.log(result, 'result')
-      next()
-    }
-    // console.log(result, 'result')
-    // res.json(result)
-
-    // res.data = {
-    //   result,
-    //   success: true
-    // }
-  })
-})
+Router.use('/login', require("./login/index"))
+Router.use('/user', (req, res, next) => {
+    console.log(req.url, 'url');
+    console.log(req.params, 'req.params');
+    console.log(req.query, 'req.query');
+    console.log(req.body, 'req.body');
+    console.log(req.method, 'req.methods');
+    let token = req.headers.token
+    console.log(token, 'token');
+try{
+    token = jwt.verify(token, key)
+    next()
+}catch(err) {
+    res.send({
+        code: 401,
+        message: 'token不存在或已过期'
+    })
+}
+},require("./user/index"))
 
 module.exports = Router

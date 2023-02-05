@@ -4,3 +4,8 @@ const API_NOT_FOUNT = { code: 404, message: '接口不存在' }
 exports.resultHandle = (code) => {
   console.log(code)
 }
+
+
+exports.notFountHandle = (req, res) => {
+  res.render('/404.html')
+}
