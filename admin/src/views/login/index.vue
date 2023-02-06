@@ -3,8 +3,11 @@ import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { User, Lock } from "@element-plus/icons-vue";
 import { handleLogin } from "../../api";
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
 
 const form = ref<FormInstance>();
+const router = useRouter();
 const ruleForm = reactive<FormRules>({
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   password: [
@@ -28,6 +31,17 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       console.log("submit!", formData);
       handleLogin(formData).then((res) => {
         console.log(res, "res");
+        const {
+          success,
+          data: { token },
+        } = res.data;
+        if (success) {
+          localStorage.setItem("token", token);
+          ElMessage.success("登录成功");
+          router.push("/home");
+        } else {
+          ElMessage.error("账号密码错误");
+        }
       });
     } else {
       console.log("error submit!", fields);
