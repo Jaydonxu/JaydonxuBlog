@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import Header from "../../components/layout/header.vue";
+import menuAside from "../../components/layout/menuAside.vue";
 </script>
 
 <template>
   <div class="common-layout">
     <el-container class="content">
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside>
+        <menuAside></menuAside>
+      </el-aside>
       <el-container>
         <el-header>
           <Header></Header>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          <RouterView></RouterView>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -27,10 +32,6 @@ import Header from "../../components/layout/header.vue";
 }
 .el-header {
   background-color: #eeeeee;
-}
-.el-aside {
-  background-color: #2f3e52;
-  color: #fff;
 }
 .el-main {
   background-color: #f7f7f5;
