@@ -2,21 +2,24 @@
 // 也可以从其他文件导入
 import * as VueRouter from "vue-router";
 import { ElMessage } from "element-plus";
+import layout from "../components/layout/index.vue";
 
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
 // 我们后面再讨论嵌套路由。
 const routes = [
+  { path: "/login", component: () => import("../views/login/index.vue") },
   {
     path: "/",
-    name: "home",
-    redirect: "/home",
-  },
-  {
-    path: "/home",
     name: "Home",
-    component: () => import("../views/home/index.vue"),
+    component: layout,
+    redirect: "/home",
     children: [
+      {
+        path: "/home",
+        name: "Home",
+        component: () => import("../views/home/index.vue"),
+      },
       {
         path: "/user",
         name: "User",
@@ -24,7 +27,6 @@ const routes = [
       },
     ],
   },
-  { path: "/login", component: () => import("../views/login/index.vue") },
 ];
 
 // 3. 创建路由实例并传递 `routes` 配置
