@@ -8,10 +8,10 @@ import layout from "../components/layout/index.vue";
 // 每个路由都需要映射到一个组件。
 // 我们后面再讨论嵌套路由。
 const routes = [
-  { path: "/login", component: () => import("../views/login/index.vue") },
   {
     path: "/",
-    name: "Home",
+    name: "首页",
+    hidden: false,
     component: layout,
     redirect: "/home",
     children: [
@@ -20,12 +20,74 @@ const routes = [
         name: "Home",
         component: () => import("../views/home/index.vue"),
       },
+    ],
+  },
+  {
+    path: "/user",
+    name: "个人",
+    hidden: false,
+    component: layout,
+    children: [
       {
         path: "/user",
-        name: "User",
+        name: "user",
         component: () => import("../views/user/index.vue"),
       },
     ],
+  },
+  {
+    path: "/blog",
+    name: "博客",
+    hidden: false,
+    component: layout,
+    children: [
+      {
+        path: "/blog",
+        name: "blog",
+        component: () => import("../views/blog/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/tags",
+    name: "标签",
+    hidden: false,
+    component: layout,
+    children: [
+      {
+        path: "/tags",
+        name: "tags",
+        component: () => import("../views/tags/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/bulletin",
+    name: "公告",
+    hidden: false,
+    component: layout,
+    children: [
+      {
+        path: "/bulletin",
+        name: "bulletin",
+        component: () => import("../views/bulletin/index.vue"),
+      },
+    ],
+  },
+  // {
+  //   path: "*",
+  //   redirect: "/404",
+  // },
+  {
+    path: "/login",
+    name: "登录",
+    component: () => import("../views/login/index.vue"),
+    hidden: true,
+  },
+  {
+    path: "/404",
+    hidden: true,
+    component: () => import("../views/404/index.vue"),
   },
 ];
 
@@ -51,4 +113,4 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-export default router;
+export { router, routes };
