@@ -1,5 +1,6 @@
 <template>
   <div class="aside">
+    <div class="aside-head">Jaydonxu个人博客</div>
     <ul class="menu-content">
       <li
         v-for="item in routeList"
@@ -30,6 +31,12 @@ console.log(routeList, "routeListrouteListrouteList");
   height: 100%;
   background-color: #2f3e52;
   color: #fff;
+  .aside-head {
+    text-align: center;
+    font-size: 30px;
+    height: 60px;
+    line-height: 60px;
+  }
   .menu-content {
     .menu-item {
       text-align: center;
