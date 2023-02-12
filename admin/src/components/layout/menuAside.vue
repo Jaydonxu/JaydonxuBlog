@@ -5,10 +5,9 @@
       <li
         v-for="item in routeList"
         class="menu-item"
+        :key="item"
         @click="$router.push(`${item.path}`)"
-      >
-        {{ item.name }}
-      </li>
+      >{{ item.name }}</li>
     </ul>
   </div>
 </template>
@@ -18,10 +17,10 @@ import { routes } from "../../router/index";
 import { ref, reactive } from "vue";
 console.log(routes);
 
-const _routes = routes.filter((item) => !item.hidden);
+const _routes = routes.filter(item => !item.hidden);
 
 const routeList = reactive({
-  ..._routes,
+  ..._routes
 });
 console.log(routeList, "routeListrouteListrouteList");
 </script>
