@@ -24,9 +24,8 @@
 
 <script setup lang="ts">
 function loginOut() {
-  console.log("执行了");
-
   window.localStorage.removeItem("token");
+  this.$router.push("/home");
 }
 </script>
 
