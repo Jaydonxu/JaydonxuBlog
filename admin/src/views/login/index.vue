@@ -51,7 +51,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <div class="login-container">
+  <div class="flex items-center login-container">
     <div class="login-content flex items-center justify-between">
       <img src="../../assets/imgs/login/login_img.png" alt="" />
       <div class="login-form">

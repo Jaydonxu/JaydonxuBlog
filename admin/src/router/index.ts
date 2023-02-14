@@ -89,6 +89,11 @@ const routes = [
     hidden: true,
     component: () => import("../views/404/index.vue"),
   },
+  {
+    path: "/test",
+    hidden: true,
+    component: () => import("../views/test/index.vue"),
+  },
 ];
 
 // 3. 创建路由实例并传递 `routes` 配置
@@ -102,14 +107,14 @@ const router = VueRouter.createRouter({
 
 // 这里就可以进行vue-router的beforeEach拦截了，你也可以放其他地方，我比较喜欢放这
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem("token");
-  if (to.path !== "/login" && !token) {
-    ElMessage({
-      message: "token失效或已过期!请重新登录",
-      type: "warning",
-    });
-    next("/login");
-  }
+  // const token = localStorage.getItem("token");
+  // if (to.path !== "/login" && !token) {
+  //   ElMessage({
+  //     message: "token失效或已过期!请重新登录",
+  //     type: "warning",
+  //   });
+  //   next("/login");
+  // }
   next();
 });
 
