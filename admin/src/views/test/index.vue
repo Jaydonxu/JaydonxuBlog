@@ -1,18 +1,28 @@
 <template>
-     <div class="flex items-center justify-center test-container">
-      test
+  <div class="flex items-center justify-center test-container">
+    <div class="number">
+      <span>0123456789</span>
     </div>
+  </div>
 </template>
 
-<script setup>
-import { ref } from "vue" 
-
+<script setup lang="ts">
+import { ref } from "vue";
 </script>
 
 <style lang="scss" scoped>
-.test-container{
+.test-container {
   width: 100vw;
   height: 100vh;
+  .number {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #333;
+    span {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      transform: translateY(0%);
+    }
+  }
 }
-
 </style>
