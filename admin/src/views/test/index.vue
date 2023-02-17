@@ -2,12 +2,15 @@
   <div class="flex items-center justify-center test-container">
     <div class="number">
       <span>0123456789</span>
+      <span v-for="item in list" :key="item">{{ item }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+
+const list = [1, 2, 4, 5];
 </script>
 
 <style lang="scss" scoped>
