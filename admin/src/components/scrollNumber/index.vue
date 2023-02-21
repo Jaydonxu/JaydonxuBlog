@@ -1,7 +1,8 @@
 <template>
   <div class="flex items-center justify-center test-container">
     <div class="number" v-for="item, index in numList" :key="index">
-      <span class="list" :ref="getList">0123456789</span>
+      <span class="list" v-if="item === ',' || item === '.'">{{ item }}</span>
+      <span class="list" v-else :ref="getList">0123456789</span>
     </div>
   </div>
   <div>
@@ -10,13 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import { transform } from "lodash";
 import { ref, defineProps, onMounted } from "vue";
 // const list = ref([1, 2, 4, 5]);
 const props = defineProps({
   number: {
     type: String,
-    default: "456789",
+    default: "1,234,567,894,567.89",
   },
   numStyle: {
     type: Object,
@@ -33,30 +33,31 @@ const strList = ref(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
 console.log(strList);
 const numList = ref(props.number.split(""));
 
-console.log(props.number, props.numStyle, numList, "number::");
-
 const listDom = []
 const getList = (el) => {
-  console.log(el, 'elel');
   listDom.push(el)
 }
-
 onMounted(() => {
-  console.log('执行了，onMounted');
-  Array.from(listDom).forEach(c => {
-    console.dir(c, 'c::');
-    setInterval(() => {
-      c.style.transform = `translateY(-${50}%)`
-    }, 200)
+  Array.from(listDom).forEach((c, i) => {
+    const isNum = numList.value[i] !== ',' && numList.value[i] !== '.'
+    const timerObj = {}
+    let index = 0
+    timerObj[i] = setInterval(() => {
+      index++
+      if (index.toString() !== numList.value[i] && isNum) {
+        c.style.transform = `translateY(-${index * 16}px)`
+      } else {
+        clearInterval(timerObj[i])
+        timerObj[i] = null
+        // if (!isNum) {
+        //   c.innerHTML = numList.value[i]
+        //   console.dir(c, "改变值：：");
+
+        // }
+      }
+    }, 100)
   })
-
 })
-
-console.log(listDom, 'listDom');
-
-
-// return { getList }
-
 </script>
 
 <style lang="scss" scoped>
@@ -67,17 +68,19 @@ console.log(listDom, 'listDom');
   .number {
     width: 20px;
     height: 20px;
-    border: 1px solid #333;
+    // border: 1px solid #333;
     overflow: hidden;
 
     span {
       transition: all 1s;
       writing-mode: vertical-rl;
       text-orientation: upright;
+      // border: 1px solid red;
+      display: block;
     }
 
     .list {
-      border: 1px solid red;
+      // border: 1px solid red;
     }
   }
 }
