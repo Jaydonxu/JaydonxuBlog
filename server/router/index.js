@@ -1,9 +1,8 @@
-const express = require('express')
-const conn = require('../db/index')
-const {jwt,expressJwt, key} = require('./token')
+const express = require("express");
+const conn = require("../db/index");
+const { jwt, expressJwt, key } = require("./token");
 
-const Router = express.Router()
-
+const Router = express.Router();
 
 /* 查询数据库数据操作 */
 // Router.get('/check', function (req, res) {
@@ -29,24 +28,28 @@ const Router = express.Router()
 // })
 
 /* 获取个人信息 */
-Router.use('/login', require("./login/index"))
-Router.use('/user', (req, res, next) => {
-    console.log(req.url, 'url');
-    console.log(req.params, 'req.params');
-    console.log(req.query, 'req.query');
-    console.log(req.body, 'req.body');
-    console.log(req.method, 'req.methods');
-    let token = req.headers.token
-    console.log(token, 'token');
-try{
-    token = jwt.verify(token, key)
-    next()
-}catch(err) {
-    res.send({
+Router.use("/login", require("./login/index"));
+Router.use(
+  "/user",
+  (req, res, next) => {
+    console.log(req.url, "url");
+    console.log(req.params, "req.params");
+    console.log(req.query, "req.query");
+    console.log(req.body, "req.body");
+    console.log(req.method, "req.methods");
+    let token = req.headers.token;
+    console.log(token, "token");
+    try {
+      token = jwt.verify(token, key);
+      next();
+    } catch (err) {
+      res.send({
         code: 401,
-        message: 'token不存在或已过期'
-    })
-}
-},require("./user/index"))
+        message: "token不存在或已过期",
+      });
+    }
+  },
+  require("./user/index")
+);
 
-module.exports = Router
+module.exports = Router;

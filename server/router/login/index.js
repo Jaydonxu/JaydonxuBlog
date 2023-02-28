@@ -20,6 +20,7 @@ Router.post("/", function (req, res) {
           code: 400,
           message: "参数不合法！",
         });
+        return;
       }
       const token = jwt.sign(
         {
