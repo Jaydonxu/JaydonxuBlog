@@ -25,11 +25,11 @@ Router.post("/", function (req, res) {
       const token = jwt.sign(
         {
           username,
-          username,
+          password,
         },
         key,
         {
-          expiresIn: "7d",
+          expiresIn: "1d",
         }
       );
 
@@ -55,7 +55,6 @@ Router.post("/", function (req, res) {
 });
 
 Router.get("/token", function (req, res) {
-  console.log(req, "xxxxx");
   res.send({
     code: 200,
     message: "成功",
