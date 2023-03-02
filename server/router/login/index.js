@@ -11,10 +11,8 @@ Router.post("/", function (req, res) {
       console.log(err);
       res.send(err);
     } else {
-      console.log(result[0], "result");
       const { user_name, user_password } = result[0];
       const { username, password } = req.body;
-      console.log(user_name, username, user_password, password, "xxxxxxxx");
       if (!username || !password) {
         res.send({
           code: 400,

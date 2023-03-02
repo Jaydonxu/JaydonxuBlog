@@ -37,7 +37,7 @@ Router.use(
     console.log(req.query, "req.query");
     console.log(req.body, "req.body");
     console.log(req.method, "req.methods");
-    let token = req.headers.token;
+    let token = req.headers.authorization;
     console.log(token, "token");
     try {
       token = jwt.verify(token, key);
