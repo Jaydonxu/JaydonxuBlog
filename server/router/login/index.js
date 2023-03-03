@@ -27,7 +27,7 @@ Router.post("/", function (req, res) {
         },
         key,
         {
-          expiresIn: "1d",
+          expiresIn: 30,
         }
       );
 

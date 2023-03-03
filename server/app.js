@@ -19,34 +19,29 @@ app.use(cors());
 
 // express——user路由
 const Router = require("./router/index.js");
-const resultHandle = require("./utils/result");
 
 // 验证接口是否携带了token，初了 /login/login 接口外不需要携带token，其它接口都需要
-// app.use(
-//   expressJwt({ secret: key, algorithms: ["HS256"] }).unless({
-//     path: ["/login"],
-//   })
-// );
+app.use(
+  expressJwt({ secret: key, algorithms: ["HS256"] }).unless({
+    path: ["/login"],
+  })
+);
 
 app.use(Router);
 // 这个是错误级别的中间件--用来捕获错误的
-// app.use(function (err, req, res, next) {
-//   console.log(err);
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   //  res.render('error'); 这个是原来的我现在注释掉了
-//   console.log("触发了错误级别的中间件", err);
-//   if (err) {
-//     res.send({
-//       code: 4,
-//       msg: err,
-//     });
-//   }
-// });
+app.use(function (err, req, res, next) {
+  console.log("触发了错误级别的中间件", err);
+  if (err.code === "invalid_token") {
+    res.send({
+      status: 401,
+      msg: "token已过期",
+    });
+  }
+  res.send({
+    status: 500,
+    message: "未知错误",
+  });
+});
 
 app.set("port", 3002); // 设定监听端口
 var server = app.listen(app.get("port"), function () {
