@@ -10,89 +10,96 @@ import layout from "../components/layout/index.vue";
 const routes = [
   {
     path: "/",
-    name: "首页",
-    hidden: false,
     component: layout,
     redirect: "/home",
     children: [
       {
         path: "/home",
-        name: "Home",
         component: () => import("../views/home/index.vue"),
+        meta: {
+          title: "首页",
+          hidden: false,
+        },
       },
-    ],
-  },
-  {
-    path: "/user",
-    name: "个人",
-    hidden: false,
-    component: layout,
-    children: [
       {
         path: "/user",
-        name: "user",
         component: () => import("../views/user/index.vue"),
+        meta: {
+          title: "个人",
+          hidden: false,
+        },
       },
-    ],
-  },
-  {
-    path: "/blog",
-    name: "博客",
-    hidden: false,
-    component: layout,
-    children: [
       {
         path: "/blog",
-        name: "blog",
-        component: () => import("../views/blog/index.vue"),
+        redirect: "/blog/md",
+        meta: {
+          title: "博客管理",
+          hidden: false,
+        },
+        children: [
+          {
+            path: "/blog/md",
+            component: () => import("../views/blog/index.vue"),
+            meta: {
+              title: "MD编辑器",
+              hidden: false,
+            },
+          },
+
+          {
+            path: "/blog/md/view",
+            component: () => import("../views/blog/view/index.vue"),
+            meta: {
+              title: "查看博客",
+              hidden: false,
+            },
+          },
+        ],
       },
-    ],
-  },
-  {
-    path: "/tags",
-    name: "标签",
-    hidden: false,
-    component: layout,
-    children: [
       {
         path: "/tags",
-        name: "tags",
         component: () => import("../views/tags/index.vue"),
+        meta: {
+          title: "标签",
+          hidden: false,
+        },
       },
-    ],
-  },
-  {
-    path: "/bulletin",
-    name: "公告",
-    hidden: false,
-    component: layout,
-    children: [
       {
         path: "/bulletin",
-        name: "bulletin",
         component: () => import("../views/bulletin/index.vue"),
+        meta: {
+          title: "公告",
+          hidden: false,
+        },
       },
     ],
   },
-  // {
-  //   path: "*",
-  //   redirect: "/404",
-  // },
   {
     path: "/login",
-    name: "登录",
     component: () => import("../views/login/index.vue"),
     hidden: true,
+    meta: {
+      title: "登录",
+      hidden: false,
+    },
   },
   {
     path: "/404",
     hidden: true,
     component: () => import("../views/404/index.vue"),
+    meta: {
+      title: "404",
+      hidden: false,
+    },
   },
   {
     path: "/test",
     hidden: true,
     component: () => import("../views/test/index.vue"),
+    meta: {
+      title: "测试",
+      hidden: false,
+    },
   },
 ];
 
