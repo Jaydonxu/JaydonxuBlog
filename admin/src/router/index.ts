@@ -22,14 +22,6 @@ const routes = [
         },
       },
       {
-        path: "/user",
-        component: () => import("../views/user/index.vue"),
-        meta: {
-          title: "个人",
-          hidden: false,
-        },
-      },
-      {
         path: "/blog",
         redirect: "/blog/md",
         meta: {
@@ -56,6 +48,15 @@ const routes = [
           },
         ],
       },
+      {
+        path: "/user",
+        component: () => import("../views/user/index.vue"),
+        meta: {
+          title: "类别管理",
+          hidden: false,
+        },
+      },
+
       {
         path: "/tags",
         component: () => import("../views/tags/index.vue"),

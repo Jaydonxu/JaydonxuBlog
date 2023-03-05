@@ -17,13 +17,16 @@
           }}</span>
           <span class="arrow-top" v-if="item.children?.length"></span>
         </div>
-        <ul v-if="item.children?.length" class="secon-menu-content">
+        <ul
+          v-if="item.children?.length && $route.path.indexOf(item.path) !== -1"
+          class="secon-menu-content"
+        >
           <li
             v-for="seconItem in item.children"
             :key="seconItem"
             class="secon-item"
             :class="[$route.path == seconItem.path ? 'secon-active-menu' : '']"
-            @click="toLink(seconItem.path)"
+            @click.stop="toLink(seconItem.path)"
           >
             {{ Object.assign({}, seconItem.meta).title }}
           </li>
@@ -54,7 +57,9 @@ console.log(routeList, "routeListrouteListrouteList");
 const toLink = function (item) {
   console.log(item, "item");
 
-  Router.push(item.path);
+  Router.push({
+    path: item,
+  });
 };
 </script>
 
@@ -63,6 +68,7 @@ const toLink = function (item) {
   height: 100%;
   background-color: #2f3e52;
   color: #fff;
+  user-select: none;
   .aside-head {
     text-align: center;
     font-size: 30px;
@@ -74,8 +80,9 @@ const toLink = function (item) {
       .secon-menu-content {
         .secon-item,
         .secon-active-menu {
-          padding: 18px 20px;
+          padding: 18px 40px;
           color: rgb(255, 255, 255, 0.5);
+          background-color: #1d2e43;
           cursor: pointer;
           &:hover {
             background-color: rgba(36, 50, 69, 0.5);
@@ -101,7 +108,6 @@ const toLink = function (item) {
           position: absolute;
           top: 40%;
           right: 30px;
-          transform: translateY(-50%);
           width: 10px;
           height: 10px;
           background: transparent;
@@ -121,15 +127,13 @@ const toLink = function (item) {
       .active-menu {
         $color: #fff;
         color: $color;
-        .menu-first {
-          .arrow-top {
-            top: 50%;
-            border-top-color: $color;
-            border-right-color: $color;
-            border-bottom-color: transparent;
-            border-left-color: transparent;
-            transform: rotate(-45deg);
-          }
+        .arrow-top {
+          top: 50%;
+          border-top-color: $color;
+          border-right-color: $color;
+          border-bottom-color: transparent;
+          border-left-color: transparent;
+          transform: rotate(-45deg);
         }
       }
     }
