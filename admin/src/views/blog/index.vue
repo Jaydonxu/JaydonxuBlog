@@ -5,6 +5,7 @@ console.log(value, "value");
 
 const save = () => {
   console.log("xxxxx");
+  console.log("打个todo");
 };
 </script>
 <template>
