@@ -36,6 +36,11 @@ app.use(function (err, req, res, next) {
       status: 401,
       msg: "token已过期",
     });
+  } else if (err.code === "credentials_required") {
+    res.send({
+      status: 401,
+      msg: "未携带token,请重新登录",
+    });
   }
   res.send({
     status: 500,
@@ -43,7 +48,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.set("port", 3002); // 设定监听端口
+app.set("port", 3001); // 设定监听端口
 var server = app.listen(app.get("port"), function () {
   debug("Express server listening on port " + server.address().port);
 });

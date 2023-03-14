@@ -30,5 +30,6 @@ const Router = express.Router();
 /* 获取个人信息 */
 Router.use("/login", require("./login/index"));
 Router.use("/user", require("./user/index"));
+Router.use("/tag", require("./tags/index"));
 
 module.exports = Router;
