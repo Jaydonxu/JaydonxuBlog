@@ -2,7 +2,7 @@
   <div class="head-container flex flex-end items-center">
     <el-dropdown>
       <span class="user-img">
-        <img src="../../assets/imgs/home/userImg.jpeg" />
+        <img src="@/assets/imgs/home/userImg.jpeg" />
       </span>
       <template #dropdown>
         <el-dropdown-menu>

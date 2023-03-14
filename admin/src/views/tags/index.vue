@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
+import { tagAdd } from "../../api/index.js";
 const tableData = [
   {
     date: "2016-05-03",
@@ -30,7 +31,6 @@ const search = () => {
   console.log("搜索");
 };
 const add = () => {
-  console.log("新增");
   dialogFormVisible.value = true;
 };
 
@@ -55,8 +55,9 @@ const rules = reactive<FormRules>({
   ],
 });
 
-const confirmHandle = () => {
+const confirmHandle = async () => {
   console.log("提交代码", dialogForm);
+  const res = await tagAdd();
 };
 </script>
 <template>

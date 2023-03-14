@@ -2,9 +2,13 @@
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { User, Lock } from "@element-plus/icons-vue";
-import { handleLogin } from "../../api";
+import { handleLogin } from "@/api";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/pinia";
+
+const user = useUserStore();
+console.log(user, "user");
 
 const form = ref<FormInstance>();
 const router = useRouter();
@@ -37,6 +41,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         } = res.data;
         if (success) {
           localStorage.setItem("token", token);
+          this.$dis;
           ElMessage.success("登录成功");
           router.push("/home");
         } else {
