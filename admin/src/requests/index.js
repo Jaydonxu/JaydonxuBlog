@@ -10,6 +10,9 @@ axios.defaults.baseURL = VITE_BASIC_API;
 axios.interceptors.request.use(
   (config) => {
     console.log(config, "confug");
+    if (config.url !== "/login") {
+      config.headers["Authorization"] = "Bearer ";
+    }
 
     return config;
   },
